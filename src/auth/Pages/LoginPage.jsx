@@ -21,7 +21,6 @@ export const LoginPage = () => {
   }
 
   const onGoogleSignIn = () => {
-    console.log('google signing');
     dispatch(startGoogleSignIn())
   }
 

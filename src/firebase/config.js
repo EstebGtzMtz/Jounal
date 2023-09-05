@@ -3,12 +3,12 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
-  apiKey: `${import.meta.env.REACT_APP_FIREBASE_API_KEY}`,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "react-curso-28959.firebaseapp.com",
   projectId: "react-curso-28959",
   storageBucket: "react-curso-28959.appspot.com",
-  messagingSenderId: `${import.meta.env.REACT_APP_FIREBASE_API_MESSAGIN_SENDER_ID}`,
-  appId: `${import.meta.env.REACT_APP_FIREBASE_API_ID}`
+  messagingSenderId: `${import.meta.env.VITE_FIREBASE_API_MESSAGIN_SENDER_ID}`,
+  appId: `${import.meta.env.VITE_FIREBASE_API_ID}`
 };
 
 // Initialize Firebase
