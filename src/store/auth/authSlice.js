@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { FirebaseApp } from '../../firebase/config'
 
 const initialState = {
-  status: 'checking', // not-authenticated, authenticated
+  status: 'not-authenticated', // not-authenticated, authenticated
   uid: null,
   email: null,
   displayName: null,
@@ -15,8 +16,11 @@ export const authSlice = createSlice({
   reducers: {
     login: (state, action) => {},
     logout: (state, payload) => {},
-    checkingCredential: (state) => {}
+    checkingCredentials: (state) => {
+      state.status = 'checking'
+      console.log(FirebaseApp)
+    }
   },
 })
 
-export const { login, logout, checkingCredential } = authSlice.actions;
+export const { login, logout, checkingCredentials } = authSlice.actions;
