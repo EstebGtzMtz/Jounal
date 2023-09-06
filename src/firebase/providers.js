@@ -17,10 +17,9 @@ export const signInWithGoogle = async () => {
     }
 
   } catch (error) {
-    console.log(error)
     return {
       ok: false,
-      message: 'error on login'
+      errorMessage: 'error on login'
     }
   }
 }
