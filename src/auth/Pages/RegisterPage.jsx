@@ -1,8 +1,16 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { AuthLayout } from '../Layout/AuthLayout';
+import { useForm } from '../../hooks';
 
 export const RegisterPage = () => {
+
+  const { name, email, password, onInputChange, } = useForm({
+    name: 'John Doe',
+    email: 'hola@mail.com',
+    password:'asdfasdfasd'
+  });
+
   return (
     <AuthLayout title='Register'>
       <form>
