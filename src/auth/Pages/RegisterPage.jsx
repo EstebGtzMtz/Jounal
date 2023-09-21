@@ -5,18 +5,35 @@ import { useForm } from '../../hooks';
 
 export const RegisterPage = () => {
 
-  const { name, email, password, onInputChange, } = useForm({
-    name: 'John Doe',
-    email: 'john@mail.com',
+  const formData = {
+    name: '',
+    email: '',
     password:''
-  });
+  }
+
+  const formValidators = {
+    name: [ value => value.length >= 1, 'name is required'],
+    email: [ value => value.includes('@'), 'email must contain @'],
+    password: [ value => value.length >= 6, 'password minimum length is 6']
+  }
+
+  const {
+    name,
+    email,
+    password,
+    onInputChange,
+    isFormValid,
+    formValidation:{
+      nameValid,
+      emailValid,
+      passwordValid
+    }
+  } = useForm(formData, formValidators);
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log({
-      name, email, password
-    })
   }
+
 
   return (
     <AuthLayout title='Register'>
@@ -30,6 +47,8 @@ export const RegisterPage = () => {
               name='name'
               value={name}
               onChange={onInputChange}
+              error={nameValid ? true : false}
+              helperText={nameValid}
               fullWidth
             />
           </Grid>
@@ -41,6 +60,8 @@ export const RegisterPage = () => {
               name='email'
               value={email}
               onChange={onInputChange}
+              error={emailValid ? true : false}
+              helperText={emailValid}
               fullWidth
             />
           </Grid>
@@ -52,13 +73,15 @@ export const RegisterPage = () => {
               name='password'
               value={password}
               onChange={onInputChange}
+              error={passwordValid ? true : false}
+              helperText={passwordValid}
               fullWidth
             />
           </Grid>
 
           <Grid container spacing={2} sx={{mb: 2, mt: 1}}>
             <Grid item xs={12}>
-              <Button variant='contained' fullWidth type='submit'>
+              <Button variant='contained' fullWidth type='submit' disabled={!isFormValid}>
                 Create account
               </Button>
             </Grid>
