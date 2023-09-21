@@ -7,19 +7,29 @@ export const RegisterPage = () => {
 
   const { name, email, password, onInputChange, } = useForm({
     name: 'John Doe',
-    email: 'hola@mail.com',
-    password:'asdfasdfasd'
+    email: 'john@mail.com',
+    password:''
   });
+
+  const onSubmit = e => {
+    e.preventDefault();
+    console.log({
+      name, email, password
+    })
+  }
 
   return (
     <AuthLayout title='Register'>
-      <form>
+      <form onSubmit={onSubmit}>
         <Grid container>
         <Grid item xs={12} sx={{marginTop: 2}}>
             <TextField
               label='Full name'
               type='text'
               placeholder="John Doe"
+              name='name'
+              value={name}
+              onChange={onInputChange}
               fullWidth
             />
           </Grid>
@@ -28,6 +38,9 @@ export const RegisterPage = () => {
               label='Email'
               type='email'
               placeholder="correro@gmail.com"
+              name='email'
+              value={email}
+              onChange={onInputChange}
               fullWidth
             />
           </Grid>
@@ -36,13 +49,16 @@ export const RegisterPage = () => {
               label='Password'
               type='password'
               placeholder="password"
+              name='password'
+              value={password}
+              onChange={onInputChange}
               fullWidth
             />
           </Grid>
 
           <Grid container spacing={2} sx={{mb: 2, mt: 1}}>
             <Grid item xs={12}>
-              <Button variant='contained' fullWidth>
+              <Button variant='contained' fullWidth type='submit'>
                 Create account
               </Button>
             </Grid>
