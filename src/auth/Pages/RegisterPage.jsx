@@ -1,12 +1,18 @@
+import { useMemo, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Button, Grid, Link, TextField, Typography } from '@mui/material';
+import { Alert, Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { AuthLayout } from '../Layout/AuthLayout';
 import { useForm } from '../../hooks';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { startWithEmailAndPassword } from '../../store/auth/authThunks';
 
 export const RegisterPage = () => {
 
-  const [formSubmitted, setFormSubmitted] = useState(false)
+  const dispatch = useDispatch();
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const {errorMessage, status} = useSelector(state => state.auth);
+
+  const isAuthenticating = useMemo(()=> status === 'checking', [status])
 
   const formData = {
     name: '',
@@ -25,7 +31,7 @@ export const RegisterPage = () => {
     email,
     password,
     onInputChange,
-    isFormValid,
+    // isFormValid,
     formValidation:{
       nameValid,
       emailValid,
@@ -36,12 +42,12 @@ export const RegisterPage = () => {
   const onSubmit = e => {
     e.preventDefault();
     setFormSubmitted(true)
+    dispatch(startWithEmailAndPassword({name, email, password}))
   }
 
 
   return (
     <AuthLayout title='Register'>
-      {isFormValid ? <h1>valid form</h1> : <h1>Invalid form</h1>}
       <form onSubmit={onSubmit}>
         <Grid container>
         <Grid item xs={12} sx={{marginTop: 2}}>
@@ -86,7 +92,7 @@ export const RegisterPage = () => {
 
           <Grid container spacing={2} sx={{mb: 2, mt: 1}}>
             <Grid item xs={12}>
-              <Button variant='contained' fullWidth type='submit' disabled={!isFormValid}>
+              <Button variant='contained' fullWidth type='submit' disabled={isAuthenticating}>
                 Create account
               </Button>
             </Grid>
@@ -98,6 +104,15 @@ export const RegisterPage = () => {
               Login
             </Link>
           </Grid>
+
+          {
+            errorMessage &&
+            <Grid container sx={{mb:2, mt: 1}}>
+              <Grid item xs={12}>
+                <Alert severity='error'> {errorMessage} </Alert>
+              </Grid>
+            </Grid>
+          }
 
         </Grid>
       </form>
