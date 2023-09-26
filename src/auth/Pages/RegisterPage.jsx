@@ -4,7 +4,7 @@ import { Alert, Button, Grid, Link, TextField, Typography } from '@mui/material'
 import { AuthLayout } from '../Layout/AuthLayout';
 import { useForm } from '../../hooks';
 import { useDispatch, useSelector } from 'react-redux';
-import { startWithEmailAndPassword } from '../../store/auth/authThunks';
+import { startRegisterUserWithEmailAndPassword } from '../../store/auth/authThunks';
 
 export const RegisterPage = () => {
 
@@ -31,7 +31,6 @@ export const RegisterPage = () => {
     email,
     password,
     onInputChange,
-    // isFormValid,
     formValidation:{
       nameValid,
       emailValid,
@@ -42,7 +41,7 @@ export const RegisterPage = () => {
   const onSubmit = e => {
     e.preventDefault();
     setFormSubmitted(true)
-    dispatch(startWithEmailAndPassword({name, email, password}))
+    dispatch(startRegisterUserWithEmailAndPassword({name, email, password}))
   }
 
 
