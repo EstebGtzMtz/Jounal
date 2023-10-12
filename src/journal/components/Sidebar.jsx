@@ -2,8 +2,12 @@
 /* eslint-disable no-unused-vars */
 import { TurnedInNot } from "@mui/icons-material"
 import { Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material"
+import { useSelector } from "react-redux"
 
 export const Sidebar = ({drawerWidth}) => {
+
+  const {displayName} = useSelector(state => state.auth);
+
   return (
     <Grid
       component='nav'
@@ -26,7 +30,7 @@ export const Sidebar = ({drawerWidth}) => {
       >
         <Toolbar>
           <Typography variant='h6' noWrap component='div' >
-            Esteban Gutierrez
+            {displayName}
           </Typography>
         </Toolbar>
 
