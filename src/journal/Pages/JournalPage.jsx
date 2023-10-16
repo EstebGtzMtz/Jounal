@@ -18,7 +18,7 @@ export const JournalPage = () => {
     <JournalLayout>
       {
         activeNote ?
-          <NoteView title={activeNote.title}  body={activeNote.body} /> :
+          <NoteView /> :
           <NothingSelectedView />
       }
 

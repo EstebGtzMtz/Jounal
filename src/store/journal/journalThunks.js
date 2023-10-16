@@ -1,6 +1,7 @@
 import { collection, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
-import { addNewEmptyNote, isSavingNewNote, setActiveNote } from './journalSlice';
+import { loadNotes } from '../../helpers';
+import { addNewEmptyNote, isSavingNewNote, setActiveNote, setNotes } from './journalSlice';
 
 export const startNewEmptyNote = () => {
   return async (dispatch, getState) => {
@@ -8,7 +9,7 @@ export const startNewEmptyNote = () => {
     // Dispatch isSavingNewNote to true and disable button to create newNotes
     dispatch(isSavingNewNote(true))
 
-    const {uid} = getState().auth
+    const {uid} = getState().auth;
 
     const newNote = {
       title: `newNote ${new Date().getTime()}`,
@@ -28,5 +29,13 @@ export const startNewEmptyNote = () => {
     // Dispacth isSaving state to false
     dispatch(isSavingNewNote(false));
 
+  }
+}
+
+export const startLoadingNotes = () => {
+  return async (dispatch, getState) => {
+    const { uid } = getState().auth;
+    const notesByUser = await loadNotes(uid);
+    dispatch(setNotes(notesByUser))
   }
 }
