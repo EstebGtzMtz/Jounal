@@ -7,6 +7,7 @@ import { useSelector } from "react-redux"
 export const Sidebar = ({drawerWidth}) => {
 
   const {displayName} = useSelector(state => state.auth);
+  const {notes} = useSelector(state => state.journal);
 
   return (
     <Grid
@@ -38,15 +39,15 @@ export const Sidebar = ({drawerWidth}) => {
 
         <List>
           {
-            ['January', 'February', 'March', 'April', 'May', 'June', 'July'].map(text => (
-              <ListItem key={text} disablePadding>
+            notes.map(note => (
+              <ListItem key={note.id} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
                     <TurnedInNot />
                   </ListItemIcon>
                   <Grid container>
-                    <ListItemText primary={text}/>
-                    <ListItemText secondary='Elit amet labore duis amet duis consectetur.'/>
+                    <ListItemText primary={note.title} />
+                    <ListItemText secondary={note.body} />
                   </Grid>
                 </ListItemButton>
               </ListItem>
