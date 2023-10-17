@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import { TurnedInNot } from "@mui/icons-material"
-import { Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material"
+import { Divider, Drawer, Grid, List, Toolbar, Typography } from "@mui/material"
 import { useSelector } from "react-redux"
+import { SideBarItem } from "./SideBarItem";
 
 export const Sidebar = ({drawerWidth}) => {
 
@@ -34,23 +33,12 @@ export const Sidebar = ({drawerWidth}) => {
             {displayName}
           </Typography>
         </Toolbar>
-
         <Divider />
 
         <List>
           {
             notes.map(note => (
-              <ListItem key={note.id} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <TurnedInNot />
-                  </ListItemIcon>
-                  <Grid container>
-                    <ListItemText primary={note.title} />
-                    <ListItemText secondary={note.body} />
-                  </Grid>
-                </ListItemButton>
-              </ListItem>
+              <SideBarItem key={note.id} {...note} />
             ))
           }
         </List>
