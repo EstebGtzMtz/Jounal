@@ -2,17 +2,10 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   isSaving: false,
-  messageSaved: '',
+  savedMessage: '',
   notes: [],
-  activeNote: null,
-  // active:{
-  //   id: '123',
-  //   title: '',
-  //   body: '',
-  //   date: 31231,
-  //   imageUrls: []
-  // }
-}
+  activeNote: null
+};
 
 export const journalSlice = createSlice({
   name: 'journal',
@@ -27,14 +20,27 @@ export const journalSlice = createSlice({
     },
     setActiveNote: (state, {payload}) => {
       state.activeNote = payload;
+      state.savedMessage = null;
     },
     setNotes: (state, {payload})=> {
       state.notes = payload
     },
-    setSaving: state => {},
-    updateNote: (state, {payload})=> {},
+    setSaving: state => {
+      state.isSaving = true;
+      state.savedMessage = null
+    },
+    updateNoteInNoteList: (state, {payload})=> {
+      state.isSaving = false;
+      state.notes = state.notes.map(note => {
+        if(note.id === payload.id){
+          return payload;
+        }
+        return note;
+      });
+      state.savedMessage = `${payload.title}, succesfully updated`;
+    },
     deleteNoteById: (state, {payload})=>{}
   },
 })
 
-export const { isSavingNewNote, addNewEmptyNote, setActiveNote, setNotes, setSaving, updateNote, deleteNoteById } = journalSlice.actions;
+export const { isSavingNewNote, addNewEmptyNote, setActiveNote, setNotes, setSaving, updateNoteInNoteList, deleteNoteById } = journalSlice.actions;
