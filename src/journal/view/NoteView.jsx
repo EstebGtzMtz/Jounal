@@ -8,7 +8,7 @@ import { ImageGallery } from '../components';
 export const NoteView = () => {
 
   const {activeNote: currentNote} = useSelector(state => state.journal);
-  const {title, body, date, onInputChange, formState} = useForm(currentNote);
+  const {title, body, date, onInputChange} = useForm(currentNote);
 
   const dateString = useMemo(()=> new Date(date).toUTCString(), [date])
 
