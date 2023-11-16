@@ -15,8 +15,9 @@ describe('Test on fileUpload', () => {
   });
 
   test('should return null when there is no image', async () => {
-      const file = new File([], 'testImage.jpg');
+      const file = new File([], 'foto.jpg');
       const url = await fileUpload(file);
+      console.log(url)
       expect(url).toBe(null);
   });
 });

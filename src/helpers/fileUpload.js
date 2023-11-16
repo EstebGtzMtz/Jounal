@@ -1,5 +1,8 @@
-export const fileUpload = async (file) => {
-  if(!file) return null;
+export const fileUpload = async file => {
+  if(!file) {
+    return null;
+  }
+
   const cloudURl = 'https://api.cloudinary.com/v1_1/dn8f8r4ba/upload';
   const formData = new FormData();
 
@@ -11,10 +14,12 @@ export const fileUpload = async (file) => {
       method: 'POST',
       body: formData
     });
+
+    if(!res.ok) throw new Error('Cannot upload image');
     const cloudResponse = await res.json();
 
     return cloudResponse.secure_url;
-  } catch ({message}) {
+  } catch (message) {
     return null;
   }
 }
