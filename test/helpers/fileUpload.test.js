@@ -1,5 +1,13 @@
 /* eslint-disable no-undef */
 import { fileUpload } from "../../src/helpers/fileUpload";
+import { v2 as cloudinary } from 'cloudinary';
+
+cloudinary.config({
+  cloud_name:'dn8f8r4ba',
+  api_key: '561517261626453',
+  api_secret: 'rvjnCTNtn13rIEqAo8uLfXkTHf0',
+  secure: true
+});
 
 describe('Test on fileUpload', () => {
 
@@ -12,12 +20,15 @@ describe('Test on fileUpload', () => {
 
       const url = await fileUpload(file);
       expect(typeof url).toBe('string');
+
+      const segments = url.split('/');
+      const idToDelete = segments[segments.length - 1].replace('.jpg', '');
+      await cloudinary.api.delete_resources([`journal-app/${idToDelete}`])
   });
 
   test('should return null when there is no image', async () => {
       const file = new File([], 'foto.jpg');
       const url = await fileUpload(file);
-      console.log(url)
       expect(url).toBe(null);
   });
 });
