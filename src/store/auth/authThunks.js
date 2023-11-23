@@ -15,7 +15,7 @@ export const startGoogleSignIn = () => {
 
     if(!result.ok) return dispatch(logout(result.errorMessage))
 
-    dispatch(login(result))
+    dispatch(login(result));
   }
 }
 
