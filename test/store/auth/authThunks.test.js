@@ -1,7 +1,13 @@
 /* eslint-disable no-undef */
 import { registerUserWithEmailAndPassword, signInWithGoogle } from "../../../src/firebase/providers";
 import { checkingCredentials, login, logout } from "../../../src/store/auth/authSlice";
-import { checkingAuthentication, startGoogleSignIn, startRegisterUserWithEmailAndPassword } from "../../../src/store/auth/authThunks";
+import {
+  checkingAuthentication,
+  startGoogleSignIn,
+  startLogout,
+  startRegisterUserWithEmailAndPassword
+} from "../../../src/store/auth/authThunks";
+
 import { demoUser } from "../../fixtures/authFixtures";
 
 jest.mock('../../../src/firebase/providers');
@@ -56,5 +62,10 @@ describe('Test on authThunks', () => {
 
     expect(dispatch).toHaveBeenCalledWith(checkingCredentials());
     expect(dispatch).toHaveBeenCalledWith(logout(errorOnRegisterUser.errorMessage));
+  });
+
+  test('should invoke the logout',async ()=>{
+    await startLogout()(dispatch);
+    expect(dispatch).toHaveBeenCalledWith(logout());
   });
 });
