@@ -37,13 +37,24 @@ describe('Test on authThunks', () => {
   });
 
   test('should invoke startRegisterUserWithEmailAndPassword/registerUserWithEmailAndPassword()', async () => {
-    const loginData = {ok: true, ...demoUser};
-    const signInFormData = {name: demoUser.displayName, email: demoUser.email, password: '123456'}
-    await registerUserWithEmailAndPassword.mockResolvedValue(loginData)
+    const signInData = {ok: true, ...demoUser};
+    const signInFormData = {name: demoUser.displayName, email: demoUser.email, password: '123456'};
+    await registerUserWithEmailAndPassword.mockResolvedValue(signInData)
 
     await startRegisterUserWithEmailAndPassword(signInFormData)(dispatch);
 
     expect(dispatch).toHaveBeenCalledWith(checkingCredentials());
-    expect(dispatch).toHaveBeenCalledWith(login(loginData))
-  })
+    expect(dispatch).toHaveBeenCalledWith(login(signInData))
+  });
+
+  test('should invoke startRegisterUserWithEmailAndPassword/registerUserWithEmailAndPassword() and return error - logout',async ()=>{
+    const errorOnRegisterUser = {ok: false, errorMessage: 'error on register user'};
+    const signInFormData = {name: '', email: demoUser.email, password: '123456'};
+
+    await registerUserWithEmailAndPassword.mockResolvedValue(errorOnRegisterUser);
+    await startRegisterUserWithEmailAndPassword(signInFormData)(dispatch);
+
+    expect(dispatch).toHaveBeenCalledWith(checkingCredentials());
+    expect(dispatch).toHaveBeenCalledWith(logout(errorOnRegisterUser.errorMessage));
+  });
 });
