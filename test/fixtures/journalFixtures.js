@@ -3,11 +3,11 @@ export const journalInitialState = {
     savedMessage: '',
     notes: [],
     activeNote: null
-}
+};
 
-export const isSavingNewNoteState = {
+export const savedNewNoteState = {
     isSaving: true,
     savedMessage: '',
     notes: [],
     activeNote: null
-}
+};
