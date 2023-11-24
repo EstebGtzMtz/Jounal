@@ -5,9 +5,24 @@ export const journalInitialState = {
     activeNote: null
 };
 
-export const savedNewNoteState = {
-    isSaving: true,
+export const emptyNoteState = {
+    title: '',
+    body: '',
+    date: new Date().getTime()
+};
+
+export const noteFilledState = {
+    uid: 123123212131,
+    title: 'title note test',
+    body: 'body note test',
+    date: new Date().getTime()
+}
+
+export const savedNotesState = {
+    isSaving: false,
     savedMessage: '',
-    notes: [],
+    notes: [{...noteFilledState}],
     activeNote: null
 };
+
+

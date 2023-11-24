@@ -26,7 +26,7 @@ export const startNewEmptyNote = () => {
     dispatch(addNewEmptyNote(newNote));
     dispatch(setActiveNote(newNote));
 
-    // Dispacth isSaving state to false
+    // Dispatch isSaving state to false
     dispatch(isSavingNewNote(false));
 
   }

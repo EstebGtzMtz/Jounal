@@ -1,6 +1,17 @@
 /* eslint-disable no-undef */
-import {isSavingNewNote, journalSlice} from "../../../src/store/journal/journalSlice.js";
-import {isSavingNewNoteState, journalInitialState} from "../../fixtures/journalFixtures.js";
+import {
+    addNewEmptyNote,
+    isSavingNewNote,
+    journalSlice,
+    setActiveNote
+} from "../../../src/store/journal/journalSlice.js";
+
+import {
+    emptyNoteState,
+    journalInitialState,
+    noteFilledState,
+    savedNotesState,
+} from "../../fixtures/journalFixtures.js";
 
 describe('Test on journalSlice', () => {
     test('should be call "journal" and return the initial state',() => {
@@ -17,5 +28,27 @@ describe('Test on journalSlice', () => {
             notes: [],
             activeNote: null
         });
+    });
+
+    test('should add new empty note to the state',() => {
+        const state = journalSlice.reducer(savedNotesState, addNewEmptyNote(emptyNoteState));
+        expect(state).toEqual({
+            isSaving: false,
+            savedMessage: '',
+            notes: [...savedNotesState.notes, {...emptyNoteState}],
+            activeNote: null
+        });
+    });
+
+    test('should set active note to show', () => {
+        const state = journalSlice.reducer(savedNotesState, setActiveNote(noteFilledState));
+        expect(state).toEqual({
+            isSaving: false,
+            savedMessage: null,
+            notes: [{...noteFilledState}],
+            activeNote: {...noteFilledState}
+
+        })
+
     });
 });
