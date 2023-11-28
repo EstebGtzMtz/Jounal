@@ -20,17 +20,16 @@ export const LoginPage = () => {
 
   const onSubmit = async(e) => {
     e.preventDefault();
-    dispatch(checkingAuthentication());
     dispatch(startLoginWithEmailAndPassword({email, password}));
   }
 
   const onGoogleSignIn = () => {
-    dispatch(startGoogleSignIn())
+    dispatch(startGoogleSignIn());
   }
 
   return (
     <AuthLayout title='Login'>
-      <form onSubmit={onSubmit} className='animate__animated animate__fadeIn animate__faster'>
+      <form onSubmit={onSubmit} aria-label='submit-form' className='animate__animated animate__fadeIn animate__faster'>
         <Grid container>
           <Grid item xs={12} sx={{marginTop: 2}}>
             <TextField
@@ -50,6 +49,7 @@ export const LoginPage = () => {
               placeholder="password"
               fullWidth
               name='password'
+              inputProps={{'data-testid':'password'}}
               value={password}
               onChange={onInputChange}
             />
