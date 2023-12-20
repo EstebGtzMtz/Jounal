@@ -5,7 +5,7 @@ import { Google } from '@mui/icons-material';
 import { AuthLayout } from '../Layout/AuthLayout';
 import { useForm } from '../../hooks';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkingAuthentication, startGoogleSignIn, startLoginWithEmailAndPassword } from '../../store/auth';
+import { startGoogleSignIn, startLoginWithEmailAndPassword } from '../../store/auth';
 
 const FormData ={ email: '', password:'' }
 
